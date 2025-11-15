@@ -17,7 +17,12 @@ export const pool = new Pool({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
 });
 
-app.use(cors());
+app.use(cors({
+  origin: function (origin, callback) {
+    callback(null, true)
+  },
+  credentials: true,
+}));
 app.use(express.json());
 
 app.get('/api/health', (req: Request, res: Response) => {
