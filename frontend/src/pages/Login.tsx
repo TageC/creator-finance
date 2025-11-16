@@ -10,73 +10,39 @@ const Login: React.FC = () => {
       alignItems: 'center',
       justifyContent: 'center',
       padding: '20px',
+      fontFamily: '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif',
     }}>
       <style>{`
-        .cl-rootBox {
-          width: 100% !important;
-        }
-        .cl-card {
-          box-shadow: none !important;
-          border: none !important;
-          background: transparent !important;
-        }
-        .cl-main {
-          width: 100% !important;
-          background: white !important;
-          border-radius: 16px !important;
-          padding: 40px !important;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
-        }
-        .cl-headerTitle {
-          font-size: 24px !important;
-          font-weight: bold !important;
-          color: #1a1a2e !important;
-        }
-        .cl-headerSubtitle {
-          color: #888 !important;
-        }
-        .cl-formButtonPrimary {
-          background-color: #00d4ff !important;
-          width: 100% !important;
-          font-weight: bold !important;
-        }
-        .cl-formButtonPrimary:hover {
-          background-color: #00b8d4 !important;
-        }
-        .cl-input {
-          border: 1px solid #ddd !important;
-          border-radius: 6px !important;
-        }
-        .cl-input:focus {
-          border-color: #00d4ff !important;
-          box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1) !important;
-        }
+        .cl-rootBox { width: 100% !important; }
+        .cl-card { box-shadow: none !important; border: none !important; background: white !important; }
+        .cl-main { background: white !important; border-radius: 12px !important; }
+        .cl-headerTitle { color: #1a1a2e !important; font-size: 22px !important; font-weight: 700 !important; }
+        .cl-headerSubtitle { color: #666 !important; font-size: 14px !important; }
+        .cl-formButtonPrimary { background: #00d4ff !important; color: white !important; font-weight: 600 !important; }
+        .cl-formButtonPrimary:hover { background: #00b8d4 !important; }
+        .cl-formFieldLabel { color: #1a1a2e !important; font-weight: 600 !important; font-size: 14px !important; }
+        .cl-input { border: 1px solid #ddd !important; border-radius: 6px !important; font-size: 14px !important; }
+        .cl-input:focus { border-color: #00d4ff !important; }
+        .cl-dividerText { color: #999 !important; }
+        .cl-footerActionLink { color: #00d4ff !important; }
       `}</style>
-      
-      <div style={{ width: '100%', maxWidth: '420px' }}>
-        <div style={{
-          textAlign: 'center',
-          marginBottom: '40px',
-          color: 'white',
-        }}>
-          <div style={{ fontSize: '56px', marginBottom: '15px' }}>💎</div>
-          <h1 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>
-            CreatorFinance
-          </h1>
-          <p style={{ color: '#b0b0b0', fontSize: '16px' }}>
-            Manage your creator earnings in one place
-          </p>
+
+      <div style={{ width: '100%', maxWidth: '400px' }}>
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '40px', color: 'white' }}>
+          <div style={{ fontSize: '48px', marginBottom: '15px' }}>💎</div>
+          <h1 style={{ fontSize: '32px', fontWeight: 'bold', marginBottom: '8px' }}>CreatorFinance</h1>
+          <p style={{ color: '#ccc', fontSize: '14px' }}>Manage your creator earnings</p>
         </div>
 
-        <SignIn />
+        {/* Login Card */}
+        <div style={{ backgroundColor: 'white', borderRadius: '12px', padding: '30px', boxShadow: '0 10px 40px rgba(0,0,0,0.2)' }}>
+          <SignIn />
+        </div>
 
-        <div style={{
-          textAlign: 'center',
-          marginTop: '30px',
-          color: '#b0b0b0',
-          fontSize: '14px',
-        }}>
-          <p>Track YouTube • Twitch • Stripe • And more</p>
+        {/* Footer */}
+        <div style={{ textAlign: 'center', marginTop: '25px', color: '#aaa', fontSize: '12px' }}>
+          <p>YouTube • Twitch • Stripe • And more</p>
         </div>
       </div>
     </div>
