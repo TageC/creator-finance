@@ -15,6 +15,7 @@ const Expenses: React.FC = () => {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({ category: '', amount: '', date: '', description: '' });
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     fetchExpenses();
@@ -42,84 +43,198 @@ const Expenses: React.FC = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFormData({ category: '', amount: '', date: '', description: '' });
+      setShowForm(false);
       fetchExpenses();
     } catch (error) {
       console.error('Failed to add expense:', error);
     }
   };
 
-  return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Expenses</h1>
+  const totalExpenses = expenses.reduce((sum, e) => sum + parseFloat(e.amount.toString()), 0);
+  
+  const categoryIcons: { [key: string]: string } = {
+    'Equipment': '🎥',
+    'Software': '💻',
+    'Home Office': '🏠',
+    'Travel': '✈️',
+    'Other': '📦',
+  };
 
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-bold mb-4">Add Expense</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <select
-            value={formData.category}
-            onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg"
-            required
-          >
-            <option value="">Select Category</option>
-            <option value="Equipment">Equipment</option>
-            <option value="Software">Software</option>
-            <option value="Home Office">Home Office</option>
-            <option value="Travel">Travel</option>
-            <option value="Other">Other</option>
-          </select>
-          <input
-            type="number"
-            placeholder="Amount"
-            value={formData.amount}
-            onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg"
-            required
-          />
-          <input
-            type="date"
-            value={formData.date}
-            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Description"
-            value={formData.description}
-            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg"
-          />
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">
-            Add Expense
-          </button>
-        </form>
+  return (
+    <div style={{ padding: '40px' }}>
+      <h1 style={{ marginBottom: '30px', color: '#1a1a2e' }}>💸 Expenses</h1>
+
+      {/* Total Card */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '25px',
+        borderRadius: '12px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        borderLeft: '4px solid #ff6b6b',
+        marginBottom: '30px',
+      }}>
+        <div style={{ color: '#888', fontSize: '14px', marginBottom: '10px' }}>Total Expenses</div>
+        <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#ff6b6b' }}>
+          ${totalExpenses.toFixed(2)}
+        </div>
       </div>
 
+      {/* Add Expense Form */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '25px',
+        borderRadius: '12px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        marginBottom: '30px',
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <h2 style={{ color: '#1a1a2e' }}>Add Expense</h2>
+          <button
+            onClick={() => setShowForm(!showForm)}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#ff6b6b',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              transition: 'background-color 0.3s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#ff5555')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ff6b6b')}
+          >
+            {showForm ? 'Cancel' : '+ Add'}
+          </button>
+        </div>
+
+        {showForm && (
+          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '15px' }}>
+            <select
+              value={formData.category}
+              onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+              style={{
+                padding: '12px',
+                border: '1px solid #ddd',
+                borderRadius: '6px',
+                fontSize: '14px',
+              }}
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="Equipment">Equipment</option>
+              <option value="Software">Software</option>
+              <option value="Home Office">Home Office</option>
+              <option value="Travel">Travel</option>
+              <option value="Other">Other</option>
+            </select>
+            <input
+              type="number"
+              placeholder="Amount"
+              value={formData.amount}
+              onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+              style={{
+                padding: '12px',
+                border: '1px solid #ddd',
+                borderRadius: '6px',
+                fontSize: '14px',
+              }}
+              required
+            />
+            <input
+              type="date"
+              value={formData.date}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+              style={{
+                padding: '12px',
+                border: '1px solid #ddd',
+                borderRadius: '6px',
+                fontSize: '14px',
+              }}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Description (optional)"
+              value={formData.description}
+              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              style={{
+                padding: '12px',
+                border: '1px solid #ddd',
+                borderRadius: '6px',
+                fontSize: '14px',
+              }}
+            />
+            <button
+              type="submit"
+              style={{
+                padding: '12px',
+                backgroundColor: '#ff6b6b',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#ff5555')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ff6b6b')}
+            >
+              Add Expense
+            </button>
+          </form>
+        )}
+      </div>
+
+      {/* Expenses List */}
       {loading ? (
-        <div className="text-center">Loading...</div>
+        <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>Loading...</div>
+      ) : expenses.length === 0 ? (
+        <div style={{
+          backgroundColor: 'white',
+          padding: '40px',
+          borderRadius: '12px',
+          textAlign: 'center',
+          color: '#888',
+        }}>
+          No expenses yet. Track your deductions!
+        </div>
       ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-100 border-b">
-              <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Category</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Amount</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Date</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              {expenses.map((e) => (
-                <tr key={e.id} className="border-b hover:bg-gray-50">
-                  <td className="px-6 py-3">{e.category}</td>
-                  <td className="px-6 py-3 font-semibold text-red-600">-${e.amount.toFixed(2)}</td>
-                  <td className="px-6 py-3">{new Date(e.date).toLocaleDateString()}</td>
-                  <td className="px-6 py-3">{e.description || '-'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          overflow: 'hidden',
+        }}>
+          {expenses.map((e, idx) => (
+            <div
+              key={e.id}
+              style={{
+                padding: '20px 25px',
+                borderBottom: idx < expenses.length - 1 ? '1px solid #f0f0f0' : 'none',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                <div style={{ fontSize: '24px' }}>
+                  {categoryIcons[e.category] || '📦'}
+                </div>
+                <div>
+                  <div style={{ fontWeight: 'bold', color: '#1a1a2e', marginBottom: '5px' }}>
+                    {e.category}
+                  </div>
+                  <div style={{ color: '#888', fontSize: '14px' }}>
+                    {new Date(e.date).toLocaleDateString()} {e.description && `• ${e.description}`}
+                  </div>
+                </div>
+              </div>
+              <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#ff6b6b' }}>
+                -${parseFloat(e.amount.toString()).toFixed(2)}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

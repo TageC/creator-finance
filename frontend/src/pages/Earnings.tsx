@@ -15,6 +15,7 @@ const Earnings: React.FC = () => {
   const [earnings, setEarnings] = useState<Earning[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({ source: '', amount: '', date: '', platform: '' });
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     fetchEarnings();
@@ -42,72 +43,168 @@ const Earnings: React.FC = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFormData({ source: '', amount: '', date: '', platform: '' });
+      setShowForm(false);
       fetchEarnings();
     } catch (error) {
       console.error('Failed to add earning:', error);
     }
   };
 
-  return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Earnings</h1>
+  const totalEarnings = earnings.reduce((sum, e) => sum + parseFloat(e.amount.toString()), 0);
 
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-bold mb-4">Add Manual Earning</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Source (e.g., Sponsorship)"
-            value={formData.source}
-            onChange={(e) => setFormData({ ...formData, source: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Amount"
-            value={formData.amount}
-            onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg"
-            required
-          />
-          <input
-            type="date"
-            value={formData.date}
-            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-            className="w-full px-4 py-2 border rounded-lg"
-            required
-          />
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700">
-            Add Earning
-          </button>
-        </form>
+  return (
+    <div style={{ padding: '40px' }}>
+      <h1 style={{ marginBottom: '30px', color: '#1a1a2e' }}>💰 Earnings</h1>
+
+      {/* Total Card */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '25px',
+        borderRadius: '12px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        borderLeft: '4px solid #00ff88',
+        marginBottom: '30px',
+      }}>
+        <div style={{ color: '#888', fontSize: '14px', marginBottom: '10px' }}>Total Earnings</div>
+        <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#00ff88' }}>
+          ${totalEarnings.toFixed(2)}
+        </div>
       </div>
 
+      {/* Add Earning Form */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '25px',
+        borderRadius: '12px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+        marginBottom: '30px',
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+          <h2 style={{ color: '#1a1a2e' }}>Add Earning</h2>
+          <button
+            onClick={() => setShowForm(!showForm)}
+            style={{
+              padding: '10px 20px',
+              backgroundColor: '#00d4ff',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              transition: 'background-color 0.3s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#00b8d4')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#00d4ff')}
+          >
+            {showForm ? 'Cancel' : '+ Add'}
+          </button>
+        </div>
+
+        {showForm && (
+          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '15px' }}>
+            <input
+              type="text"
+              placeholder="Source (e.g., Sponsorship)"
+              value={formData.source}
+              onChange={(e) => setFormData({ ...formData, source: e.target.value })}
+              style={{
+                padding: '12px',
+                border: '1px solid #ddd',
+                borderRadius: '6px',
+                fontSize: '14px',
+              }}
+              required
+            />
+            <input
+              type="number"
+              placeholder="Amount"
+              value={formData.amount}
+              onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
+              style={{
+                padding: '12px',
+                border: '1px solid #ddd',
+                borderRadius: '6px',
+                fontSize: '14px',
+              }}
+              required
+            />
+            <input
+              type="date"
+              value={formData.date}
+              onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+              style={{
+                padding: '12px',
+                border: '1px solid #ddd',
+                borderRadius: '6px',
+                fontSize: '14px',
+              }}
+              required
+            />
+            <button
+              type="submit"
+              style={{
+                padding: '12px',
+                backgroundColor: '#00ff88',
+                color: 'white',
+                border: 'none',
+                borderRadius: '6px',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'background-color 0.3s',
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#00dd77')}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#00ff88')}
+            >
+              Add Earning
+            </button>
+          </form>
+        )}
+      </div>
+
+      {/* Earnings List */}
       {loading ? (
-        <div className="text-center">Loading...</div>
+        <div style={{ textAlign: 'center', padding: '40px', color: '#888' }}>Loading...</div>
+      ) : earnings.length === 0 ? (
+        <div style={{
+          backgroundColor: 'white',
+          padding: '40px',
+          borderRadius: '12px',
+          textAlign: 'center',
+          color: '#888',
+        }}>
+          No earnings yet. Add one to get started!
+        </div>
       ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-100 border-b">
-              <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Source</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Amount</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Date</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold">Platform</th>
-              </tr>
-            </thead>
-            <tbody>
-              {earnings.map((e) => (
-                <tr key={e.id} className="border-b hover:bg-gray-50">
-                  <td className="px-6 py-3">{e.source}</td>
-                  <td className="px-6 py-3 font-semibold text-green-600">${e.amount.toFixed(2)}</td>
-                  <td className="px-6 py-3">{new Date(e.date).toLocaleDateString()}</td>
-                  <td className="px-6 py-3">{e.platform || 'Manual'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div style={{
+          backgroundColor: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          overflow: 'hidden',
+        }}>
+          {earnings.map((e, idx) => (
+            <div
+              key={e.id}
+              style={{
+                padding: '20px 25px',
+                borderBottom: idx < earnings.length - 1 ? '1px solid #f0f0f0' : 'none',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                <div style={{ fontWeight: 'bold', color: '#1a1a2e', marginBottom: '5px' }}>
+                  {e.source}
+                </div>
+                <div style={{ color: '#888', fontSize: '14px' }}>
+                  {new Date(e.date).toLocaleDateString()} • {e.platform || 'Manual'}
+                </div>
+              </div>
+              <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#00ff88' }}>
+                ${parseFloat(e.amount.toString()).toFixed(2)}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>
