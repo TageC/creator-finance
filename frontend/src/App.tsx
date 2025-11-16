@@ -42,3 +42,4 @@ const App: React.FC = () => {
     </ClerkProvider>
   );
 };
+export default App;

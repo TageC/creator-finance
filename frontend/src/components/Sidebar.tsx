@@ -91,3 +91,4 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
     </div>
   );
 };
+export default Sidebar;
