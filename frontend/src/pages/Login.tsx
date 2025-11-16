@@ -11,90 +11,65 @@ const Login: React.FC = () => {
       justifyContent: 'center',
       padding: '20px',
     }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '420px',
-      }}>
-        {/* Header */}
+      <style>{`
+        .cl-rootBox {
+          width: 100% !important;
+        }
+        .cl-card {
+          box-shadow: none !important;
+          border: none !important;
+          background: transparent !important;
+        }
+        .cl-main {
+          width: 100% !important;
+          background: white !important;
+          border-radius: 16px !important;
+          padding: 40px !important;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+        }
+        .cl-headerTitle {
+          font-size: 24px !important;
+          font-weight: bold !important;
+          color: #1a1a2e !important;
+        }
+        .cl-headerSubtitle {
+          color: #888 !important;
+        }
+        .cl-formButtonPrimary {
+          background-color: #00d4ff !important;
+          width: 100% !important;
+          font-weight: bold !important;
+        }
+        .cl-formButtonPrimary:hover {
+          background-color: #00b8d4 !important;
+        }
+        .cl-input {
+          border: 1px solid #ddd !important;
+          border-radius: 6px !important;
+        }
+        .cl-input:focus {
+          border-color: #00d4ff !important;
+          box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1) !important;
+        }
+      `}</style>
+      
+      <div style={{ width: '100%', maxWidth: '420px' }}>
         <div style={{
           textAlign: 'center',
           marginBottom: '40px',
           color: 'white',
         }}>
-          <div style={{
-            fontSize: '56px',
-            marginBottom: '15px',
-          }}>💎</div>
-          <h1 style={{
-            fontSize: '36px',
-            fontWeight: 'bold',
-            marginBottom: '10px',
-          }}>CreatorFinance</h1>
-          <p style={{
-            color: '#b0b0b0',
-            fontSize: '16px',
-          }}>Manage your creator earnings in one place</p>
+          <div style={{ fontSize: '56px', marginBottom: '15px' }}>💎</div>
+          <h1 style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>
+            CreatorFinance
+          </h1>
+          <p style={{ color: '#b0b0b0', fontSize: '16px' }}>
+            Manage your creator earnings in one place
+          </p>
         </div>
 
-        {/* Sign In Card - Custom Styling */}
-        <div style={{
-          backgroundColor: 'white',
-          borderRadius: '16px',
-          padding: '40px',
-          boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-        }}>
-          <style>{`
-            .cl-rootBox {
-              width: 100% !important;
-            }
-            .cl-card {
-              box-shadow: none !important;
-              border: none !important;
-            }
-            .cl-main {
-              width: 100% !important;
-            }
-            .cl-headerTitle {
-              font-size: 24px !important;
-              font-weight: bold !important;
-              color: #1a1a2e !important;
-              margin-bottom: 20px !important;
-            }
-            .cl-headerSubtitle {
-              color: #888 !important;
-              font-size: 14px !important;
-            }
-            .cl-formButtonPrimary {
-              background-color: #00d4ff !important;
-              border-color: #00d4ff !important;
-              font-weight: bold !important;
-            }
-            .cl-formButtonPrimary:hover {
-              background-color: #00b8d4 !important;
-            }
-            .cl-formFieldLabel {
-              color: #1a1a2e !important;
-              font-weight: 600 !important;
-            }
-            .cl-input {
-              border-color: #ddd !important;
-              border-radius: 6px !important;
-            }
-            .cl-input:focus {
-              border-color: #00d4ff !important;
-              box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1) !important;
-            }
-            .cl-footerActionLink {
-              color: #00d4ff !important;
-            }
-            .cl-footerActionLink:hover {
-              color: #00b8d4 !important;
-            }
-          `}</style>
-          <SignIn />
-        </div>
+        <SignIn />
 
-        {/* Footer */}
         <div style={{
           textAlign: 'center',
           marginTop: '30px',
