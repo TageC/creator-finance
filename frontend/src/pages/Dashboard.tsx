@@ -31,51 +31,128 @@ const Dashboard: React.FC = () => {
     fetchData();
   }, [getToken]);
 
-  if (loading) return <div className="text-center py-8">Loading...</div>;
-  if (!data) return <div className="text-center py-8">Error loading dashboard</div>;
+  if (loading) return <div style={{ padding: '40px', textAlign: 'center' }}>Loading...</div>;
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
+    <div style={{ padding: '40px' }}>
+      <h1 style={{ marginBottom: '30px', color: '#1a1a2e' }}>Dashboard</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white p-6 rounded-lg shadow">
-          <p className="text-gray-600 text-sm font-medium">Total Earnings</p>
-          <p className="text-4xl font-bold text-blue-600 mt-2">${data.totalEarnings.toFixed(2)}</p>
+      {/* Stats Grid */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '20px',
+        marginBottom: '40px',
+      }}>
+        {/* Total Earnings Card */}
+        <div style={{
+          backgroundColor: 'white',
+          padding: '25px',
+          borderRadius: '12px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          borderLeft: '4px solid #00d4ff',
+        }}>
+          <div style={{ color: '#888', fontSize: '14px', marginBottom: '10px' }}>Total Earnings</div>
+          <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#00d4ff' }}>
+            ${data?.totalEarnings.toFixed(2)}
+          </div>
+          <div style={{ color: '#aaa', fontSize: '12px', marginTop: '10px' }}>All time</div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <p className="text-gray-600 text-sm font-medium">This Month</p>
-          <p className="text-4xl font-bold text-green-600 mt-2">${data.monthlyEarnings.toFixed(2)}</p>
+
+        {/* This Month Card */}
+        <div style={{
+          backgroundColor: 'white',
+          padding: '25px',
+          borderRadius: '12px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          borderLeft: '4px solid #00ff88',
+        }}>
+          <div style={{ color: '#888', fontSize: '14px', marginBottom: '10px' }}>This Month</div>
+          <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#00ff88' }}>
+            ${data?.monthlyEarnings.toFixed(2)}
+          </div>
+          <div style={{ color: '#aaa', fontSize: '12px', marginTop: '10px' }}>Current month</div>
         </div>
-        <div className="bg-white p-6 rounded-lg shadow">
-          <p className="text-gray-600 text-sm font-medium">Connected Platforms</p>
-          <p className="text-4xl font-bold text-purple-600 mt-2">{data.connectedPlatforms.length}</p>
-          <p className="text-xs text-gray-500 mt-2">{data.connectedPlatforms.join(', ') || 'None yet'}</p>
+
+        {/* Connected Platforms Card */}
+        <div style={{
+          backgroundColor: 'white',
+          padding: '25px',
+          borderRadius: '12px',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+          borderLeft: '4px solid #ff6b6b',
+        }}>
+          <div style={{ color: '#888', fontSize: '14px', marginBottom: '10px' }}>Connected Platforms</div>
+          <div style={{ fontSize: '36px', fontWeight: 'bold', color: '#ff6b6b' }}>
+            {data?.connectedPlatforms.length || 0}
+          </div>
+          <div style={{ color: '#aaa', fontSize: '12px', marginTop: '10px' }}>
+            {data?.connectedPlatforms.length === 0 ? 'None yet' : data?.connectedPlatforms.join(', ')}
+          </div>
         </div>
       </div>
 
-      <div className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-xl font-bold mb-4">Getting Started</h2>
-        <div className="space-y-3">
-          <div className="flex items-start gap-3">
-            <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
+      {/* Getting Started Section */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '30px',
+        borderRadius: '12px',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+      }}>
+        <h2 style={{ marginBottom: '20px', color: '#1a1a2e' }}>Getting Started</h2>
+        <div style={{ display: 'grid', gap: '20px' }}>
+          <div style={{ display: 'flex', gap: '15px' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              backgroundColor: '#00d4ff',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold',
+              flexShrink: 0,
+            }}>1</div>
             <div>
-              <p className="font-semibold">Connect YouTube</p>
-              <p className="text-sm text-gray-600">Sync your YouTube earnings automatically</p>
+              <div style={{ fontWeight: 'bold', color: '#1a1a2e' }}>Connect YouTube</div>
+              <div style={{ color: '#888', fontSize: '14px' }}>Sync your YouTube earnings automatically</div>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
+          <div style={{ display: 'flex', gap: '15px' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              backgroundColor: '#00ff88',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold',
+              flexShrink: 0,
+            }}>2</div>
             <div>
-              <p className="font-semibold">Connect Twitch (Optional)</p>
-              <p className="text-sm text-gray-600">Add Twitch subscriptions and bits</p>
+              <div style={{ fontWeight: 'bold', color: '#1a1a2e' }}>Connect Twitch (Optional)</div>
+              <div style={{ color: '#888', fontSize: '14px' }}>Add Twitch subscriptions and bits</div>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <div className="bg-blue-100 text-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
+          <div style={{ display: 'flex', gap: '15px' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              backgroundColor: '#ff6b6b',
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontWeight: 'bold',
+              flexShrink: 0,
+            }}>3</div>
             <div>
-              <p className="font-semibold">Track Expenses</p>
-              <p className="text-sm text-gray-600">Upload receipts and categorize deductions</p>
+              <div style={{ fontWeight: 'bold', color: '#1a1a2e' }}>Track Expenses</div>
+              <div style={{ color: '#888', fontSize: '14px' }}>Upload receipts and categorize deductions</div>
             </div>
           </div>
         </div>
@@ -83,5 +160,3 @@ const Dashboard: React.FC = () => {
     </div>
   );
 };
-
-export default Dashboard;
