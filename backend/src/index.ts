@@ -8,6 +8,7 @@ import integrationRoutes from './routes/integrations';
 import earningsRoutes from './routes/earnings';
 import expenseRoutes from './routes/expenses';
 import youtubeRoutes from './routes/youtube';
+import taxRoutes from './routes/tax';
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.use('/api/integrations', verifyToken, integrationRoutes);
 app.use('/api/earnings', verifyToken, earningsRoutes);
 app.use('/api/expenses', verifyToken, expenseRoutes);
 app.use('/api/youtube', youtubeRoutes);
+app.use('/api/tax', taxRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

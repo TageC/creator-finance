@@ -16,6 +16,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
     { path: '/', label: 'Dashboard', icon: '📊' },
     { path: '/earnings', label: 'Earnings', icon: '💰' },
     { path: '/expenses', label: 'Expenses', icon: '💸' },
+    { path: '/tax', label: 'Tax', icon: '📊' },
     { path: '/settings', label: 'Settings', icon: '⚙️' },
   ];
 

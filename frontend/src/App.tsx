@@ -7,6 +7,7 @@ import Earnings from './pages/Earnings';
 import Expenses from './pages/Expenses';
 import Sidebar from './components/Sidebar';
 import Login from './pages/Login';
+import Tax from './pages/Tax';
 
 const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -32,6 +33,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/earnings" element={<Earnings />} />
                 <Route path="/expenses" element={<Expenses />} />
+                <Route path="/tax" element={<Tax />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>
