@@ -157,12 +157,13 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* YouTube Section */}
+        <div style={{ marginTop: '40px' }}>
+          <YouTubeConnect />
+        </div>
       </div>
     </div>
-    {/* YouTube Section */}
-<div style={{ marginTop: '40px' }}>
-  <YouTubeConnect />
-</div>
   );
 };
 export default Dashboard;
