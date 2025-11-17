@@ -1,3 +1,4 @@
+import YouTubeConnect from '../components/YouTubeConnect';
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@clerk/clerk-react';
 import api from '../utils/api';
@@ -158,6 +159,10 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
     </div>
+    {/* YouTube Section */}
+<div style={{ marginTop: '40px' }}>
+  <YouTubeConnect />
+</div>
   );
 };
 export default Dashboard;

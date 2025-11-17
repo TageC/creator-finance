@@ -7,6 +7,7 @@ import dashboardRoutes from './routes/dashboard';
 import integrationRoutes from './routes/integrations';
 import earningsRoutes from './routes/earnings';
 import expenseRoutes from './routes/expenses';
+import youtubeRoutes from './routes/youtube';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/dashboard', verifyToken, dashboardRoutes);
 app.use('/api/integrations', verifyToken, integrationRoutes);
 app.use('/api/earnings', verifyToken, earningsRoutes);
 app.use('/api/expenses', verifyToken, expenseRoutes);
+app.use('/api/youtube', youtubeRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
