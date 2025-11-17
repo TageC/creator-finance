@@ -19,10 +19,8 @@ export const pool = new Pool({
 });
 
 app.use(cors({
-  origin: function (origin, callback) {
-    callback(null, true)
-  },
-  credentials: true,
+  origin: '*',
+  credentials: false,
 }));
 app.use(express.json());
 
